@@ -34,3 +34,17 @@ def get_forecast(city, days=3):
             "condition": random.choice(["sunny", "cloudy", "rain", "snow"]),
         })
     return {"city": city, "forecast": forecast}
+
+def check_alerts(city):
+    """Check for weather alerts in a city."""
+    city = city.lower()
+    weather = get_weather(city)
+    # Bug: no None check on weather (will crash for unknown cities)
+    temp = weather["temperature"]
+    alerts = []
+    if temp > 35:
+        alerts.append({"level": "warning", "message": f"Extreme heat: {temp}C"})
+    if temp < -20:
+        alerts.append({"level": "warning", "message": f"Extreme cold: {temp}C"})
+    # TODO: add wind speed alerts
+    return alerts

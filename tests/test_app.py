@@ -20,3 +20,7 @@ def test_weather_valid_city(client):
 def test_weather_invalid_city(client):
     resp = client.get("/weather/atlantis")
     assert resp.status_code == 404
+
+def test_alerts_valid_city(client):
+    resp = client.get("/alerts/stockholm")
+    assert resp.status_code == 200
